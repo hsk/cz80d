@@ -1,0 +1,717 @@
+  RET    NC
+  POP    DE
+  JP     NC,0x1234
+  OUT    (0x1),A
+  CALL   NC,0x1234
+  PUSH   DE
+  SUB    A,0x12
+  RST    0x10
+  RET    C
+  EXX
+  JP     C,0x1234
+  IN     A,(0x10)
+  CALL   C,0x1234
+  INC    (IX+1)
+  SBC    A,0x12
+  RST    0x18
+
+  RET    PO
+  POP    HL
+  JP     PO,0x1234
+  EX     (SP),HL
+  CALL   PO,0x1234
+  PUSH   HL
+  AND    0x12
+  RST    0x20
+  RET    PE
+  JP     (HL)
+  JP     PE,0x1234
+  EX     DE,HL
+  CALL   PE,0x1234
+  IN     B,(C)
+  XOR    0x12
+  RST    0x28
+
+  RET    P
+  POP    AF
+  JP     P,0x1234
+  DI
+  CALL   P,0x1234
+  PUSH   AF
+  OR     0x12
+  RST    0x30
+  RET    M
+  LD     SP,HL
+  JP     M,0x1234
+  EI
+  CALL   M,0x1234
+  CP     0x12
+  RST    38h
+
+; dd ext
+
+  ADD IX,BC
+  ADD IX,DE
+  LD IX,0x1234
+  LD (0x1234),IX
+  INC IX
+  INC IXH ;(undef)
+  DEC IXH ;(undef)
+  LD IXH,0x12 ;(undef)
+  ADD IX,IX
+  LD IX,(0x1234)
+  DEC IX
+  INC IXL ;(undef)
+  DEC IXL ;(undef)
+  LD IXL,0x12 ;(undef)
+  INC (IX+0x12)
+  DEC (IX+0x12)
+  LD (IX+0x12),0x34
+  ADD IX,SP
+  LD B,IXH ;(undef)
+  LD B,IXL ;(undef)
+  LD B,(IX+0x12)
+  LD C,IXH ;(undef)
+  LD C,IXL ;(undef)
+  LD C,(IX+0x12)
+  LD D,IXH ;(undef)
+  LD D,IXL ;(undef)
+  LD D,(IX+0x12)
+  LD E,IXH ;(undef)
+  LD E,IXL ;(undef)
+  LD E,(IX+0x12)
+  LD IXH,B ;(undef)
+  LD IXH,C ;(undef)
+  LD IXH,D ;(undef)
+  LD IXH,E ;(undef)
+  LD IXH,IXH ;(undef)
+  LD IXH,IXL ;(undef)
+  LD H,(ix+0x12)
+  LD IXH,A ;(undef)
+  LD IXL,B ;(undef)
+  LD IXL,C ;(undef)
+  LD IXL,D ;(undef)
+  LD IXL,E ;(undef)
+  LD IXL,IXH ;(undef)
+  LD IXL,IXL ;(undef)
+  LD L,(IX+0x12)
+  LD IXL,A ;(undef)
+  LD (IX+0x12),B
+  LD (IX+0x12),C
+  LD (IX+0x12),D
+  LD (IX+0x12),E
+  LD (IX+0x12),H
+  LD (IX+0x12),L
+  LD (IX+0x12),A
+  LD A,IXH ;(undef)
+  LD A,IXL ;(undef)
+  LD A,(IX+0x12)
+  ADD A,IXH ;(undef)
+  ADD A,IXL ;(undef)
+  ADD A,(IX+0x12)
+  ADC A,IXH ;(undef)
+  ADC A,IXL ;(undef)
+  ADC A,(IX+0x12)
+  SUB A,IXH ;(undef)
+  SUB A,IXL ;(undef)
+  SUB (IX+0x12)
+  SBC A,IXH ;(undef)
+  SBC A,IXL ;(undef)
+  SBC A,(IX+0x12)
+  AND IXH ;(undef)
+  AND IXL ;(undef)
+  AND (IX+0x12)
+  XOR IXH ;(undef)
+  XOR IXL ;(undef)
+  XOR (IX+0x12)
+  OR IXH ;(undef)
+  OR IXL ;(undef)
+  OR (IX+0x12)
+  CP IXH ;(undef)
+  CP IXL ;(undef)
+  CP (IX+0x12)
+  POP IX
+  EX (SP),IX
+  PUSH IX
+  JP (IX)
+  LD SP,IX
+
+
+; fd ext
+
+  defb 0fdh,000h,000h ; fd 00 00 illegal sequence
+  defb 0fdh,001h,000h ; fd 01 00 illegal sequence
+  defb 0fdh,002h,000h ; fd 02 00 illegal sequence
+  defb 0fdh,003h,000h ; fd 03 00 illegal sequence
+  defb 0fdh,004h,000h ; fd 04 00 illegal sequence
+  defb 0fdh,005h,000h ; fd 05 00 illegal sequence
+  defb 0fdh,006h,000h ; fd 06 00 illegal sequence
+  defb 0fdh,007h,000h ; fd 07 00 illegal sequence
+  defb 0fdh,008h,000h ; fd 08 00 illegal sequence
+  add iy,bc           ; fd 09
+  add iy,de           ; fd 19
+  ld iy,01234h        ; fd 21 34 12
+  ld (01234h),iy      ; fd 22 34 12
+  inc iy              ; fd 23
+  inc iyh             ; fd 24
+  dec iyh             ; fd 25
+  defb 0fdh,026h,012h ; fd 26 12 ;ld iyh,012h
+  add iy,iy           ; fd 29
+  ld iy,(01234h)      ; fd 2a 34 12
+  dec iy              ; fd 2b
+  inc iyl             ; fd 2c
+  dec iyl             ; fd 2d
+  defb 0fdh,02eh,012h ; fd 2e ; ld iyl,012h
+  inc (iy+001h)       ; fd 34 01
+  dec (iy+001h)       ; fd 35 01
+  ld (iy+001h),012h   ; fd 36 01 12
+  add iy,sp           ; fd 39
+  defb 0fdh,040h,000h ; fd 40 00 illegal sequence
+  ld b,iyh            ; fd 44
+  ld b,iyl            ; fd 45
+  ld b,(iy+001h)      ; fd 46 01
+  defb 0fdh,048h,000h ; fd 48 00 illegal sequence
+  ld c,iyh            ; fd 4c
+  ld c,iyl            ; fd 4d
+  ld c,(iy+001h)      ; fd 4e 01
+  defb 0fdh,050h,000h ; fd 50 00 illegal sequence
+  ld d,iyh            ; fd 54
+  ld d,iyl            ; fd 55
+  ld d,(iy+001h)      ; fd 56 01
+  defb 0fdh,058h,000h ; fd 58 00 illegal sequence
+  ld e,iyh            ; fd 5c
+  ld e,iyl            ; fd 5d
+  ld e,(iy+001h)      ; fd 5e 01
+  ld iyh,b            ; fd 60
+  ld iyl,b            ; fd 61
+  ld iyh,d            ; fd 62
+  ld iyh,e            ; fd 63
+  ld iyh,iyh          ; fd 64
+  ld iyh,iyl          ; fd 65
+  ld h,(iy+001h)      ; fd 66 01
+  ld iyh,a            ; fd 67
+  ld iyl,b            ; fd 68
+  ld iyl,c            ; fd 69
+  ld iyl,d            ; fd 6a
+  ld iyl,e            ; fd 6b
+  ld iyl,iyh          ; fd 6c
+  ld iyl,iyl          ; fd 6d
+  ld l,(iy+001h)      ; fd 6e 01
+  ld iyl,a            ; fd 6f
+  ld (iy+0x12),b      ; fd 70 12
+  ld (iy+0x12),c      ; fd 71 12
+  ld (iy+0x12),d      ; fd 72 12
+  ld (iy+0x12),e      ; fd 73 12
+  ld (iy+0x12),h      ; fd 74 12
+  ld (iy+0x12),l      ; fd 75 12
+  ld (iy+0x12),a      ; fd 77 12
+  defb 0fdh,078h,000h ; fd 78 00 illegal sequence
+  ld a,iyh            ; fd 7c
+  ld a,iyl            ; fd 7d
+  ld a,(iy+001h)      ; fd 7e 01
+  defb 0fdh,080h,000h ; fd 80 00 illegal sequence
+  add a,iyh           ; fd 84
+  add a,iyl           ; fd 85
+  add a,(iy+001h)     ; fd 86 01
+  defb 0fdh,088h,000h ; fd 88 00 illegal sequence
+  adc a,iyh           ; fd 8c
+  adc a,iyl           ; fd 8d
+  adc a,(iy+001h)     ; fd 8e 01
+  defb 0fdh,090h,000h ; fd 90 00 illegal sequence
+  sub a,iyh           ; fd 94
+  sub a,iyl           ; fd 95
+  sub (iy+001h)       ; fd 96 01
+  defb 0fdh,098h,000h ; fd 98 00 illegal sequence
+  sbc a,iyh           ; fd 9c
+  sbc a,iyl           ; fd 9d
+  sbc a,(iy+001h)     ; fd 9e 01
+  defb 0fdh,0a0h,000h ; fd a0 00 illegal sequence
+  and iyh             ; fd a4
+  and iyl             ; fd a5
+  and (iy+001h)       ; fd a6 01
+  defb 0fdh,0a8h,000h ; fd a8 00 illegal sequence
+  xor iyh             ; fd ac
+  xor iyl             ; fd ad
+  xor (iy+001h)       ; fd ae 01
+  or iyh              ; fd b4
+  or iyl              ; fd b5
+  or (iy+001h)        ; fd b6 01
+  cp iyh              ; fd bc
+  cp iyl              ; fd bd
+  cp (iy+001h)        ; fd be 01
+  pop iy              ; fd e1 
+  ex (sp),iy          ; fd e3
+  push iy             ; fd e5
+  jp (iy)             ; fd e9
+  ld sp,iy            ; fd f9
+  
+
+; ed ext
+
+  IN B,(C)
+  OUT (C),B
+  SBC HL,BC
+  LD (0x1234),BC
+  NEG
+  RETN
+  IM 0
+  LD I,A
+  IN C,(C)
+  OUT (C),C
+  ADC HL,BC
+  LD BC,(0x1234)
+  RETI
+  LD R,A
+  IN D,(C)
+  OUT (C),D
+  SBC HL,DE
+  LD (0x1234),DE
+  IM 1
+  LD A,I
+  IN E,(C)
+  OUT (C),E
+  ADC HL,DE
+  LD DE,(0x1234)
+  IM 2
+  LD A,R
+  IN H,(C)
+  OUT (C),H
+  SBC HL,HL
+  defb 0xed,0x63,0x34,0x12; LD (0x1234),HL ;(undef、22 nnの別名)
+  RRD
+  IN L,(C)
+  OUT (C),L
+  ADC HL,HL
+  defb 0xed,0x6b,0x34,0x12; LD HL,(0x1234) ;(undef、2A nnの別名)
+  RLD
+  IN F,(C) ;(undef)
+  OUT (C),0 ;(undef)
+  SBC HL,SP
+  LD (0x1234),SP
+  IN A,(C)
+  OUT (C),A
+  ADC HL,SP
+  LD SP,(0x1234)
+  LDI
+  CPI
+  INI
+  OUTI
+  LDD
+  CPD
+  IND
+  OUTD
+  LDIR
+  CPIR
+  INIR
+  OTIR
+  LDDR
+  CPDR
+  INDR
+  OTDR
+
+; ddcb ext
+
+  ; LD B,RLC(IX+0x12) ;(undef)
+  ; LD C,RLC(IX+0x12) ;(undef)
+  ; LD D,RLC(IX+0x12) ;(undef)
+  ; LD E,RLC(IX+0x12) ;(undef)
+  ; LD H,RLC(IX+0x12) ;(undef)
+  ; LD L,RLC(IX+0x12) ;(undef)
+  RLC (IX+0x12)
+  ; LD A,RLC(IX+0x12) ;(undef)
+  ; LD B,RRC(IX+0x12) ;(undef)
+  ; LD C,RRC(IX+0x12) ;(undef)
+  ; LD D,RRC(IX+0x12) ;(undef)
+  ; LD E,RRC(IX+0x12) ;(undef)
+  ; LD H,RRC(IX+0x12) ;(undef)
+  ; LD L,RRC(IX+0x12) ;(undef)
+  RRC (IX+0x12)
+  ; LD A,RRC(IX+0x12) ;(undef)
+  ; LD B,RL(IX+0x12) ;(undef)
+  ; LD C,RL(IX+0x12) ;(undef)
+  ; LD D,RL(IX+0x12) ;(undef)
+  ; LD E,RL(IX+0x12) ;(undef)
+  ; LD H,RL(IX+0x12) ;(undef)
+  ; LD L,RL(IX+0x12) ;(undef)
+  RL (IX+0x12)
+  ; LD A,RL(IX+0x12) ;(undef)
+  ; LD B,RR(IX+0x12) ;(undef)
+  ; LD C,RR(IX+0x12) ;(undef)
+  ; LD D,RR(IX+0x12) ;(undef)
+  ; LD E,RR(IX+0x12) ;(undef)
+  ; LD H,RR(IX+0x12) ;(undef)
+  ; LD L,RR(IX+0x12) ;(undef)
+  RR (IX+0x12)
+  ; LD A,RR(IX+0x12) ;(undef)
+  ; LD B,SLA(IX+0x12) ;(undef)
+  ; LD C,SLA(IX+0x12) ;(undef)
+  ; LD D,SLA(IX+0x12) ;(undef)
+  ; LD E,SLA(IX+0x12) ;(undef)
+  ; LD H,SLA(IX+0x12) ;(undef)
+  ; LD L,SLA(IX+0x12) ;(undef)
+  SLA (IX+0x12)
+  ; LD A,SLA(IX+0x12) ;(undef)
+  ; LD B,SRA(IX+0x12) ;(undef)
+  ; LD C,SRA(IX+0x12) ;(undef)
+  ; LD D,SRA(IX+0x12) ;(undef)
+  ; LD E,SRA(IX+0x12) ;(undef)
+  ; LD H,SRA(IX+0x12) ;(undef)
+  ; LD L,SRA(IX+0x12) ;(undef)
+  SRA (IX+0x12)
+  ; LD A,SRA(IX+0x12) ;(undef)
+  ; LD B,SLL(IX+0x12) ;(undef)
+  ; LD C,SLL(IX+0x12) ;(undef)
+  ; LD D,SLL(IX+0x12) ;(undef)
+  ; LD E,SLL(IX+0x12) ;(undef)
+  ; LD H,SLL(IX+0x12) ;(undef)
+  ; LD L,SLL(IX+0x12) ;(undef)
+  SLL (IX+0x12) ;(undef)
+  ; LD A,SLL(IX+0x12) ;(undef)
+  ; LD B,SRL(IX+0x12) ;(undef)
+  ; LD C,SRL(IX+0x12) ;(undef)
+  ; LD D,SRL(IX+0x12) ;(undef)
+  ; LD E,SRL(IX+0x12) ;(undef)
+  ; LD H,SRL(IX+0x12) ;(undef)
+  ; LD L,SRL(IX+0x12) ;(undef)
+  SRL (IX+0x12)
+  ; LD A,SRL(IX+0x12) ;(undef)
+  BIT 0,(IX+0x12)
+  BIT 1,(IX+0x12)
+  BIT 2,(IX+0x12)
+  BIT 3,(IX+0x12)
+  BIT 4,(IX+0x12)
+  BIT 5,(IX+0x12)
+  BIT 6,(IX+0x12)
+  BIT 7,(IX+0x12)
+  ; LD B,RES 0,(IX+0x12) ;(undef)
+  ; LD C,RES 0,(IX+0x12) ;(undef)
+  ; LD D,RES 0,(IX+0x12) ;(undef)
+  ; LD E,RES 0,(IX+0x12) ;(undef)
+  ; LD H,RES 0,(IX+0x12) ;(undef)
+  ; LD L,RES 0,(IX+0x12) ;(undef)
+  RES 0,(IX+0x12)
+  ; LD A,RES 0,(IX+0x12) ;(undef)
+  ; LD B,RES 1,(IX+0x12) ;(undef)
+  ; LD C,RES 1,(IX+0x12) ;(undef)
+  ; LD D,RES 1,(IX+0x12) ;(undef)
+  ; LD E,RES 1,(IX+0x12) ;(undef)
+  ; LD H,RES 1,(IX+0x12) ;(undef)
+  ; LD L,RES 1,(IX+0x12) ;(undef)
+  RES 1,(IX+0x12)
+  ; LD A,RES 1,(IX+0x12) ;(undef)
+  ; LD B,RES 2,(IX+0x12) ;(undef)
+  ; LD C,RES 2,(IX+0x12) ;(undef)
+  ; LD D,RES 2,(IX+0x12) ;(undef)
+  ; LD E,RES 2,(IX+0x12) ;(undef)
+  ; LD H,RES 2,(IX+0x12) ;(undef)
+  ; LD L,RES 2,(IX+0x12) ;(undef)
+  RES 2,(IX+0x12)
+  ; LD A,RES 2,(IX+0x12) ;(undef)
+  ; LD B,RES 3,(IX+0x12) ;(undef)
+  ; LD C,RES 3,(IX+0x12) ;(undef)
+  ; LD D,RES 3,(IX+0x12) ;(undef)
+  ; LD E,RES 3,(IX+0x12) ;(undef)
+  ; LD H,RES 3,(IX+0x12) ;(undef)
+  ; LD L,RES 3,(IX+0x12) ;(undef)
+  RES 3,(IX+0x12)
+  ; LD A,RES 3,(IX+0x12) ;(undef)
+  ; LD B,RES 4,(IX+0x12) ;(undef)
+  ; LD C,RES 4,(IX+0x12) ;(undef)
+  ; LD D,RES 4,(IX+0x12) ;(undef)
+  ; LD E,RES 4,(IX+0x12) ;(undef)
+  ; LD H,RES 4,(IX+0x12) ;(undef)
+  ; LD L,RES 4,(IX+0x12) ;(undef)
+  RES 4,(IX+0x12)
+  ; LD A,RES 4,(IX+0x12) ;(undef)
+  ; LD B,RES 5,(IX+0x12) ;(undef)
+  ; LD C,RES 5,(IX+0x12) ;(undef)
+  ; LD D,RES 5,(IX+0x12) ;(undef)
+  ; LD E,RES 5,(IX+0x12) ;(undef)
+  ; LD H,RES 5,(IX+0x12) ;(undef)
+  ; LD L,RES 5,(IX+0x12) ;(undef)
+  RES 5,(IX+0x12)
+  ; LD A,RES 5,(IX+0x12) ;(undef)
+  ; LD B,RES 6,(IX+0x12) ;(undef)
+  ; LD C,RES 6,(IX+0x12) ;(undef)
+  ; LD D,RES 6,(IX+0x12) ;(undef)
+  ; LD E,RES 6,(IX+0x12) ;(undef)
+  ; LD H,RES 6,(IX+0x12) ;(undef)
+  ; LD L,RES 6,(IX+0x12) ;(undef)
+  RES 6,(IX+0x12)
+  ; LD A,RES 6,(IX+0x12) ;(undef)
+  ; LD B,RES 7,(IX+0x12) ;(undef)
+  ; LD C,RES 7,(IX+0x12) ;(undef)
+  ; LD D,RES 7,(IX+0x12) ;(undef)
+  ; LD E,RES 7,(IX+0x12) ;(undef)
+  ; LD H,RES 7,(IX+0x12) ;(undef)
+  ; LD L,RES 7,(IX+0x12) ;(undef)
+  RES 7,(IX+0x12)
+  ; LD A,RES 7,(IX+0x12) ;(undef)
+  ; LD B,SET 0,(IX+0x12) ;(undef)
+  ; LD C,SET 0,(IX+0x12) ;(undef)
+  ; LD D,SET 0,(IX+0x12) ;(undef)
+  ; LD E,SET 0,(IX+0x12) ;(undef)
+  ; LD H,SET 0,(IX+0x12) ;(undef)
+  ; LD L,SET 0,(IX+0x12) ;(undef)
+  SET 0,(IX+0x12)
+  ; LD A,SET 0,(IX+0x12) ;(undef)
+  ; LD B,SET 1,(IX+0x12) ;(undef)
+  ; LD C,SET 1,(IX+0x12) ;(undef)
+  ; LD D,SET 1,(IX+0x12) ;(undef)
+  ; LD E,SET 1,(IX+0x12) ;(undef)
+  ; LD H,SET 1,(IX+0x12) ;(undef)
+  ; LD L,SET 1,(IX+0x12) ;(undef)
+  SET 1,(IX+0x12)
+  ; LD A,SET 1,(IX+0x12) ;(undef)
+  ; LD B,SET 2,(IX+0x12) ;(undef)
+  ; LD C,SET 2,(IX+0x12) ;(undef)
+  ; LD D,SET 2,(IX+0x12) ;(undef)
+  ; LD E,SET 2,(IX+0x12) ;(undef)
+  ; LD H,SET 2,(IX+0x12) ;(undef)
+  ; LD L,SET 2,(IX+0x12) ;(undef)
+  SET 2,(IX+0x12)
+  ; LD A,SET 2,(IX+0x12) ;(undef)
+  ; LD B,SET 3,(IX+0x12) ;(undef)
+  ; LD C,SET 3,(IX+0x12) ;(undef)
+  ; LD D,SET 3,(IX+0x12) ;(undef)
+  ; LD E,SET 3,(IX+0x12) ;(undef)
+  ; LD H,SET 3,(IX+0x12) ;(undef)
+  ; LD L,SET 3,(IX+0x12) ;(undef)
+  SET 3,(IX+0x12)
+  ; LD A,SET 3,(IX+0x12) ;(undef)
+  ; LD B,SET 4,(IX+0x12) ;(undef)
+  ; LD C,SET 4,(IX+0x12) ;(undef)
+  ; LD D,SET 4,(IX+0x12) ;(undef)
+  ; LD E,SET 4,(IX+0x12) ;(undef)
+  ; LD H,SET 4,(IX+0x12) ;(undef)
+  ; LD L,SET 4,(IX+0x12) ;(undef)
+  SET 4,(IX+0x12)
+  ; LD A,SET 4,(IX+0x12) ;(undef)
+  ; LD B,SET 5,(IX+0x12) ;(undef)
+  ; LD C,SET 5,(IX+0x12) ;(undef)
+  ; LD D,SET 5,(IX+0x12) ;(undef)
+  ; LD E,SET 5,(IX+0x12) ;(undef)
+  ; LD H,SET 5,(IX+0x12) ;(undef)
+  ; LD L,SET 5,(IX+0x12) ;(undef)
+  SET 5,(IX+0x12)
+  ; LD A,SET 5,(IX+0x12) ;(undef)
+  ; LD B,SET 6,(IX+0x12) ;(undef)
+  ; LD C,SET 6,(IX+0x12) ;(undef)
+  ; LD D,SET 6,(IX+0x12) ;(undef)
+  ; LD E,SET 6,(IX+0x12) ;(undef)
+  ; LD H,SET 6,(IX+0x12) ;(undef)
+  ; LD L,SET 6,(IX+0x12) ;(undef)
+  SET 6,(IX+0x12)
+  ; LD A,SET 6,(IX+0x12) ;(undef)
+  ; LD B,SET 7,(IX+0x12) ;(undef)
+  ; LD C,SET 7,(IX+0x12) ;(undef)
+  ; LD D,SET 7,(IX+0x12) ;(undef)
+  ; LD E,SET 7,(IX+0x12) ;(undef)
+  ; LD H,SET 7,(IX+0x12) ;(undef)
+  ; LD L,SET 7,(IX+0x12) ;(undef)
+  SET 7,(IX+0x12)
+  ; LD A,SET 7,(IX+0x12) ;(undef)
+
+; fdcb ext
+
+  ; LD B,RLC(IY+0x12) ;(undef)
+  ; LD C,RLC(IY+0x12) ;(undef)
+  ; LD D,RLC(IY+0x12) ;(undef)
+  ; LD E,RLC(IY+0x12) ;(undef)
+  ; LD H,RLC(IY+0x12) ;(undef)
+  ; LD L,RLC(IY+0x12) ;(undef)
+  RLC (IY+0x12)
+  ; LD A,RLC(IY+0x12) ;(undef)
+  ; LD B,RRC(IY+0x12) ;(undef)
+  ; LD C,RRC(IY+0x12) ;(undef)
+  ; LD D,RRC(IY+0x12) ;(undef)
+  ; LD E,RRC(IY+0x12) ;(undef)
+  ; LD H,RRC(IY+0x12) ;(undef)
+  ; LD L,RRC(IY+0x12) ;(undef)
+  RRC (IY+0x12)
+  ; LD A,RRC(IY+0x12) ;(undef)
+  ; LD B,RL(IY+0x12) ;(undef)
+  ; LD C,RL(IY+0x12) ;(undef)
+  ; LD D,RL(IY+0x12) ;(undef)
+  ; LD E,RL(IY+0x12) ;(undef)
+  ; LD H,RL(IY+0x12) ;(undef)
+  ; LD L,RL(IY+0x12) ;(undef)
+  RL (IY+0x12)
+  ; LD A,RL(IY+0x12) ;(undef)
+  ; LD B,RR(IY+0x12) ;(undef)
+  ; LD C,RR(IY+0x12) ;(undef)
+  ; LD D,RR(IY+0x12) ;(undef)
+  ; LD E,RR(IY+0x12) ;(undef)
+  ; LD H,RR(IY+0x12) ;(undef)
+  ; LD L,RR(IY+0x12) ;(undef)
+  RR (IY+0x12)
+  ; LD A,RR(IY+0x12) ;(undef)
+  ; LD B,SLA(IY+0x12) ;(undef)
+  ; LD C,SLA(IY+0x12) ;(undef)
+  ; LD D,SLA(IY+0x12) ;(undef)
+  ; LD E,SLA(IY+0x12) ;(undef)
+  ; LD H,SLA(IY+0x12) ;(undef)
+  ; LD L,SLA(IY+0x12) ;(undef)
+  SLA (IY+0x12)
+  ; LD A,SLA(IY+0x12) ;(undef)
+  ; LD B,SRA(IY+0x12) ;(undef)
+  ; LD C,SRA(IY+0x12) ;(undef)
+  ; LD D,SRA(IY+0x12) ;(undef)
+  ; LD E,SRA(IY+0x12) ;(undef)
+  ; LD H,SRA(IY+0x12) ;(undef)
+  ; LD L,SRA(IY+0x12) ;(undef)
+  SRA (IY+0x12)
+  ; LD A,SRA(IY+0x12) ;(undef)
+  ; LD B,SLL(IY+0x12) ;(undef)
+  ; LD C,SLL(IY+0x12) ;(undef)
+  ; LD D,SLL(IY+0x12) ;(undef)
+  ; LD E,SLL(IY+0x12) ;(undef)
+  ; LD H,SLL(IY+0x12) ;(undef)
+  ; LD L,SLL(IY+0x12) ;(undef)
+  SLL (IY+0x12) ;(undef)
+  ; LD A,SLL(IY+0x12) ;(undef)
+  ; LD B,SRL(IY+0x12) ;(undef)
+  ; LD C,SRL(IY+0x12) ;(undef)
+  ; LD D,SRL(IY+0x12) ;(undef)
+  ; LD E,SRL(IY+0x12) ;(undef)
+  ; LD H,SRL(IY+0x12) ;(undef)
+  ; LD L,SRL(IY+0x12) ;(undef)
+  SRL (IY+0x12)
+  ; LD A,SRL(IY+0x12) ;(undef)
+  BIT 0,(IY+0x12)
+  BIT 1,(IY+0x12)
+  BIT 2,(IY+0x12)
+  BIT 3,(IY+0x12)
+  BIT 4,(IY+0x12)
+  BIT 5,(IY+0x12)
+  BIT 6,(IY+0x12)
+  BIT 7,(IY+0x12)
+  ; LD B,RES 0,(IY+0x12) ;(undef)
+  ; LD C,RES 0,(IY+0x12) ;(undef)
+  ; LD D,RES 0,(IY+0x12) ;(undef)
+  ; LD E,RES 0,(IY+0x12) ;(undef)
+  ; LD H,RES 0,(IY+0x12) ;(undef)
+  ; LD L,RES 0,(IY+0x12) ;(undef)
+  RES 0,(IY+0x12)
+  ; LD A,RES 0,(IY+0x12) ;(undef)
+  ; LD B,RES 1,(IY+0x12) ;(undef)
+  ; LD C,RES 1,(IY+0x12) ;(undef)
+  ; LD D,RES 1,(IY+0x12) ;(undef)
+  ; LD E,RES 1,(IY+0x12) ;(undef)
+  ; LD H,RES 1,(IY+0x12) ;(undef)
+  ; LD L,RES 1,(IY+0x12) ;(undef)
+  RES 1,(IY+0x12)
+  ; LD A,RES 1,(IY+0x12) ;(undef)
+  ; LD B,RES 2,(IY+0x12) ;(undef)
+  ; LD C,RES 2,(IY+0x12) ;(undef)
+  ; LD D,RES 2,(IY+0x12) ;(undef)
+  ; LD E,RES 2,(IY+0x12) ;(undef)
+  ; LD H,RES 2,(IY+0x12) ;(undef)
+  ; LD L,RES 2,(IY+0x12) ;(undef)
+  RES 2,(IY+0x12)
+  ; LD A,RES 2,(IY+0x12) ;(undef)
+  ; LD B,RES 3,(IY+0x12) ;(undef)
+  ; LD C,RES 3,(IY+0x12) ;(undef)
+  ; LD D,RES 3,(IY+0x12) ;(undef)
+  ; LD E,RES 3,(IY+0x12) ;(undef)
+  ; LD H,RES 3,(IY+0x12) ;(undef)
+  ; LD L,RES 3,(IY+0x12) ;(undef)
+  RES 3,(IY+0x12)
+  ; LD A,RES 3,(IY+0x12) ;(undef)
+  ; LD B,RES 4,(IY+0x12) ;(undef)
+  ; LD C,RES 4,(IY+0x12) ;(undef)
+  ; LD D,RES 4,(IY+0x12) ;(undef)
+  ; LD E,RES 4,(IY+0x12) ;(undef)
+  ; LD H,RES 4,(IY+0x12) ;(undef)
+  ; LD L,RES 4,(IY+0x12) ;(undef)
+  RES 4,(IY+0x12)
+  ; LD A,RES 4,(IY+0x12) ;(undef)
+  ; LD B,RES 5,(IY+0x12) ;(undef)
+  ; LD C,RES 5,(IY+0x12) ;(undef)
+  ; LD D,RES 5,(IY+0x12) ;(undef)
+  ; LD E,RES 5,(IY+0x12) ;(undef)
+  ; LD H,RES 5,(IY+0x12) ;(undef)
+  ; LD L,RES 5,(IY+0x12) ;(undef)
+  RES 5,(IY+0x12)
+  ; LD A,RES 5,(IY+0x12) ;(undef)
+  ; LD B,RES 6,(IY+0x12) ;(undef)
+  ; LD C,RES 6,(IY+0x12) ;(undef)
+  ; LD D,RES 6,(IY+0x12) ;(undef)
+  ; LD E,RES 6,(IY+0x12) ;(undef)
+  ; LD H,RES 6,(IY+0x12) ;(undef)
+  ; LD L,RES 6,(IY+0x12) ;(undef)
+  RES 6,(IY+0x12)
+  ; LD A,RES 6,(IY+0x12) ;(undef)
+  ; LD B,RES 7,(IY+0x12) ;(undef)
+  ; LD C,RES 7,(IY+0x12) ;(undef)
+  ; LD D,RES 7,(IY+0x12) ;(undef)
+  ; LD E,RES 7,(IY+0x12) ;(undef)
+  ; LD H,RES 7,(IY+0x12) ;(undef)
+  ; LD L,RES 7,(IY+0x12) ;(undef)
+  RES 7,(IY+0x12)
+  ; LD A,RES 7,(IY+0x12) ;(undef)
+  ; LD B,SET 0,(IY+0x12) ;(undef)
+  ; LD C,SET 0,(IY+0x12) ;(undef)
+  ; LD D,SET 0,(IY+0x12) ;(undef)
+  ; LD E,SET 0,(IY+0x12) ;(undef)
+  ; LD H,SET 0,(IY+0x12) ;(undef)
+  ; LD L,SET 0,(IY+0x12) ;(undef)
+  SET 0,(IY+0x12)
+  ; LD A,SET 0,(IY+0x12) ;(undef)
+  ; LD B,SET 1,(IY+0x12) ;(undef)
+  ; LD C,SET 1,(IY+0x12) ;(undef)
+  ; LD D,SET 1,(IY+0x12) ;(undef)
+  ; LD E,SET 1,(IY+0x12) ;(undef)
+  ; LD H,SET 1,(IY+0x12) ;(undef)
+  ; LD L,SET 1,(IY+0x12) ;(undef)
+  SET 1,(IY+0x12)
+  ; LD A,SET 1,(IY+0x12) ;(undef)
+  ; LD B,SET 2,(IY+0x12) ;(undef)
+  ; LD C,SET 2,(IY+0x12) ;(undef)
+  ; LD D,SET 2,(IY+0x12) ;(undef)
+  ; LD E,SET 2,(IY+0x12) ;(undef)
+  ; LD H,SET 2,(IY+0x12) ;(undef)
+  ; LD L,SET 2,(IY+0x12) ;(undef)
+  SET 2,(IY+0x12)
+  ; LD A,SET 2,(IY+0x12) ;(undef)
+  ; LD B,SET 3,(IY+0x12) ;(undef)
+  ; LD C,SET 3,(IY+0x12) ;(undef)
+  ; LD D,SET 3,(IY+0x12) ;(undef)
+  ; LD E,SET 3,(IY+0x12) ;(undef)
+  ; LD H,SET 3,(IY+0x12) ;(undef)
+  ; LD L,SET 3,(IY+0x12) ;(undef)
+  SET 3,(IY+0x12)
+  ; LD A,SET 3,(IY+0x12) ;(undef)
+  ; LD B,SET 4,(IY+0x12) ;(undef)
+  ; LD C,SET 4,(IY+0x12) ;(undef)
+  ; LD D,SET 4,(IY+0x12) ;(undef)
+  ; LD E,SET 4,(IY+0x12) ;(undef)
+  ; LD H,SET 4,(IY+0x12) ;(undef)
+  ; LD L,SET 4,(IY+0x12) ;(undef)
+  SET 4,(IY+0x12)
+  ; LD A,SET 4,(IY+0x12) ;(undef)
+  ; LD B,SET 5,(IY+0x12) ;(undef)
+  ; LD C,SET 5,(IY+0x12) ;(undef)
+  ; LD D,SET 5,(IY+0x12) ;(undef)
+  ; LD E,SET 5,(IY+0x12) ;(undef)
+  ; LD H,SET 5,(IY+0x12) ;(undef)
+  ; LD L,SET 5,(IY+0x12) ;(undef)
+  SET 5,(IY+0x12)
+  ; LD A,SET 5,(IY+0x12) ;(undef)
+  ; LD B,SET 6,(IY+0x12) ;(undef)
+  ; LD C,SET 6,(IY+0x12) ;(undef)
+  ; LD D,SET 6,(IY+0x12) ;(undef)
+  ; LD E,SET 6,(IY+0x12) ;(undef)
+  ; LD H,SET 6,(IY+0x12) ;(undef)
+  ; LD L,SET 6,(IY+0x12) ;(undef)
+  SET 6,(IY+0x12)
+  ; LD A,SET 6,(IY+0x12) ;(undef)
+  ; LD B,SET 7,(IY+0x12) ;(undef)
+  ; LD C,SET 7,(IY+0x12) ;(undef)
+  ; LD D,SET 7,(IY+0x12) ;(undef)
+  ; LD E,SET 7,(IY+0x12) ;(undef)
+  ; LD H,SET 7,(IY+0x12) ;(undef)
+  ; LD L,SET 7,(IY+0x12) ;(undef)
+  SET 7,(IY+0x12)
+  ; LD A,SET 7,(IY+0x12) ;(undef)
+

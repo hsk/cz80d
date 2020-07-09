@@ -1,0 +1,16 @@
+01   0000 50            LD     D,B
+02   0001 51            LD     D,C
+03   0002 52            LD     D,D
+04   0003 53            LD     D,E
+05   0004 54            LD     D,H
+06   0005 55            LD     D,L
+07   0006 56            LD     D,(HL)
+08   0007 57            LD     D,A
+09   0008 58            LD     E,B
+10   0009 59            LD     E,C
+11   000A 5A            LD     E,D
+12   000B 5B            LD     E,E
+13   000C 5C            LD     E,H
+14   000D 5D            LD     E,L
+15   000E 5E            LD     E,(HL)
+16   000F 5F            LD     E,A

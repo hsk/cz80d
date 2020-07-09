@@ -1,0 +1,18 @@
+lbl
+  djnz lbl ; 0x10
+  ld de,1234h
+  ld (de),a
+  inc de
+  inc d
+  dec d
+  ld d,12h
+  rla
+  jr .next
+.next
+  add hl,de
+  ld a,(de)
+  dec de
+  inc e
+  dec e
+  ld e,01h
+  rra

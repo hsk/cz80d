@@ -1,0 +1,18 @@
+01   0000             func1:
+02   0000 00            nop
+03   0001 01 01 00      ld bc,01h
+04   0004 02            ld (bc),a
+05   0005 03            inc bc
+06   0006 04            inc b
+07   0007 05            dec b
+08   0008 06 00         ld b,0h
+09   000A 07            rlca
+10   000B 08            ex af,af'
+11   000C 09            add hl,bc
+12   000D 0A            ld a,(bc)
+13   000E 0B            dec bc
+14   000F 0C            inc c
+15   0010 0D            dec c
+16   0011 0E 00         ld c,0h
+17   0013 0F            rrca
+18   0014             

@@ -1,0 +1,719 @@
+001   0000 D0            RET    NC
+002   0001 D1            POP    DE
+003   0002 D2 34 12      JP     NC,0x1234
+004   0005 D3 01         OUT    (0x1),A
+005   0007 D4 34 12      CALL   NC,0x1234
+006   000A D5            PUSH   DE
+007   000B D6 12         SUB    A,0x12
+008   000D D7            RST    0x10
+009   000E D8            RET    C
+010   000F D9            EXX
+011   0010 DA 34 12      JP     C,0x1234
+012   0013 DB 10         IN     A,(0x10)
+013   0015 DC 34 12      CALL   C,0x1234
+014   0018 DD 34 01      INC    (IX+1)
+015   001B DE 12         SBC    A,0x12
+016   001D DF            RST    0x18
+017   001E             
+018   001E E0            RET    PO
+019   001F E1            POP    HL
+020   0020 E2 34 12      JP     PO,0x1234
+021   0023 E3            EX     (SP),HL
+022   0024 E4 34 12      CALL   PO,0x1234
+023   0027 E5            PUSH   HL
+024   0028 E6 12         AND    0x12
+025   002A E7            RST    0x20
+026   002B E8            RET    PE
+027   002C E9            JP     (HL)
+028   002D EA 34 12      JP     PE,0x1234
+029   0030 EB            EX     DE,HL
+030   0031 EC 34 12      CALL   PE,0x1234
+031   0034 ED 40         IN     B,(C)
+032   0036 EE 12         XOR    0x12
+033   0038 EF            RST    0x28
+034   0039             
+035   0039 F0            RET    P
+036   003A F1            POP    AF
+037   003B F2 34 12      JP     P,0x1234
+038   003E F3            DI
+039   003F F4 34 12      CALL   P,0x1234
+040   0042 F5            PUSH   AF
+041   0043 F6 12         OR     0x12
+042   0045 F7            RST    0x30
+043   0046 F8            RET    M
+044   0047 F9            LD     SP,HL
+045   0048 FA 34 12      JP     M,0x1234
+046   004B FB            EI
+047   004C FC 34 12      CALL   M,0x1234
+048   004F FE 12         CP     0x12
+049   0051 FF            RST    38h
+050   0052             
+051   0052             ; dd ext
+052   0052             
+053   0052 DD 09         ADD IX,BC
+054   0054 DD 19         ADD IX,DE
+055   0056 DD 21 34 12   LD IX,0x1234
+056   005A DD 22 34 12   LD (0x1234),IX
+057   005E DD 23         INC IX
+058   0060 DD 24         INC IXH ;(undef)
+059   0062 DD 25         DEC IXH ;(undef)
+060   0064 DD 26 12      LD IXH,0x12 ;(undef)
+061   0067 DD 29         ADD IX,IX
+062   0069 DD 2A 34 12   LD IX,(0x1234)
+063   006D DD 2B         DEC IX
+064   006F DD 2C         INC IXL ;(undef)
+065   0071 DD 2D         DEC IXL ;(undef)
+066   0073 DD 2E 12      LD IXL,0x12 ;(undef)
+067   0076 DD 34 12      INC (IX+0x12)
+068   0079 DD 35 12      DEC (IX+0x12)
+069   007C DD 36 12 34   LD (IX+0x12),0x34
+070   0080 DD 39         ADD IX,SP
+071   0082 DD 44         LD B,IXH ;(undef)
+072   0084 DD 45         LD B,IXL ;(undef)
+073   0086 DD 46 12      LD B,(IX+0x12)
+074   0089 DD 4C         LD C,IXH ;(undef)
+075   008B DD 4D         LD C,IXL ;(undef)
+076   008D DD 4E 12      LD C,(IX+0x12)
+077   0090 DD 54         LD D,IXH ;(undef)
+078   0092 DD 55         LD D,IXL ;(undef)
+079   0094 DD 56 12      LD D,(IX+0x12)
+080   0097 DD 5C         LD E,IXH ;(undef)
+081   0099 DD 5D         LD E,IXL ;(undef)
+082   009B DD 5E 12      LD E,(IX+0x12)
+083   009E DD 60         LD IXH,B ;(undef)
+084   00A0 DD 61         LD IXH,C ;(undef)
+085   00A2 DD 62         LD IXH,D ;(undef)
+086   00A4 DD 63         LD IXH,E ;(undef)
+087   00A6 DD 64         LD IXH,IXH ;(undef)
+088   00A8 DD 65         LD IXH,IXL ;(undef)
+089   00AA DD 66 12      LD H,(ix+0x12)
+090   00AD DD 67         LD IXH,A ;(undef)
+091   00AF DD 68         LD IXL,B ;(undef)
+092   00B1 DD 69         LD IXL,C ;(undef)
+093   00B3 DD 6A         LD IXL,D ;(undef)
+094   00B5 DD 6B         LD IXL,E ;(undef)
+095   00B7 DD 6C         LD IXL,IXH ;(undef)
+096   00B9 DD 6D         LD IXL,IXL ;(undef)
+097   00BB DD 6E 12      LD L,(IX+0x12)
+098   00BE DD 6F         LD IXL,A ;(undef)
+099   00C0 DD 70 12      LD (IX+0x12),B
+100   00C3 DD 71 12      LD (IX+0x12),C
+101   00C6 DD 72 12      LD (IX+0x12),D
+102   00C9 DD 73 12      LD (IX+0x12),E
+103   00CC DD 74 12      LD (IX+0x12),H
+104   00CF DD 75 12      LD (IX+0x12),L
+105   00D2 DD 77 12      LD (IX+0x12),A
+106   00D5 DD 7C         LD A,IXH ;(undef)
+107   00D7 DD 7D         LD A,IXL ;(undef)
+108   00D9 DD 7E 12      LD A,(IX+0x12)
+109   00DC DD 84         ADD A,IXH ;(undef)
+110   00DE DD 85         ADD A,IXL ;(undef)
+111   00E0 DD 86 12      ADD A,(IX+0x12)
+112   00E3 DD 8C         ADC A,IXH ;(undef)
+113   00E5 DD 8D         ADC A,IXL ;(undef)
+114   00E7 DD 8E 12      ADC A,(IX+0x12)
+115   00EA DD 94         SUB A,IXH ;(undef)
+116   00EC DD 95         SUB A,IXL ;(undef)
+117   00EE DD 96 12      SUB (IX+0x12)
+118   00F1 DD 9C         SBC A,IXH ;(undef)
+119   00F3 DD 9D         SBC A,IXL ;(undef)
+120   00F5 DD 9E 12      SBC A,(IX+0x12)
+121   00F8 DD A4         AND IXH ;(undef)
+122   00FA DD A5         AND IXL ;(undef)
+123   00FC DD A6 12      AND (IX+0x12)
+124   00FF DD AC         XOR IXH ;(undef)
+125   0101 DD AD         XOR IXL ;(undef)
+126   0103 DD AE 12      XOR (IX+0x12)
+127   0106 DD B4         OR IXH ;(undef)
+128   0108 DD B5         OR IXL ;(undef)
+129   010A DD B6 12      OR (IX+0x12)
+130   010D DD BC         CP IXH ;(undef)
+131   010F DD BD         CP IXL ;(undef)
+132   0111 DD BE 12      CP (IX+0x12)
+133   0114 DD E1         POP IX
+134   0116 DD E3         EX (SP),IX
+135   0118 DD E5         PUSH IX
+136   011A DD E9         JP (IX)
+137   011C DD F9         LD SP,IX
+138   011E             
+139   011E             
+140   011E             ; fd ext
+141   011E             
+142   011E FD 00 00      defb 0fdh,000h,000h ; fd 00 00 illegal sequence
+143   0121 FD 01 00      defb 0fdh,001h,000h ; fd 01 00 illegal sequence
+144   0124 FD 02 00      defb 0fdh,002h,000h ; fd 02 00 illegal sequence
+145   0127 FD 03 00      defb 0fdh,003h,000h ; fd 03 00 illegal sequence
+146   012A FD 04 00      defb 0fdh,004h,000h ; fd 04 00 illegal sequence
+147   012D FD 05 00      defb 0fdh,005h,000h ; fd 05 00 illegal sequence
+148   0130 FD 06 00      defb 0fdh,006h,000h ; fd 06 00 illegal sequence
+149   0133 FD 07 00      defb 0fdh,007h,000h ; fd 07 00 illegal sequence
+150   0136 FD 08 00      defb 0fdh,008h,000h ; fd 08 00 illegal sequence
+151   0139 FD 09         add iy,bc           ; fd 09
+152   013B FD 19         add iy,de           ; fd 19
+153   013D FD 21 34 12   ld iy,01234h        ; fd 21 34 12
+154   0141 FD 22 34 12   ld (01234h),iy      ; fd 22 34 12
+155   0145 FD 23         inc iy              ; fd 23
+156   0147 FD 24         inc iyh             ; fd 24
+157   0149 FD 25         dec iyh             ; fd 25
+158   014B FD 26 12      defb 0fdh,026h,012h ; fd 26 12 ;ld iyh,012h
+159   014E FD 29         add iy,iy           ; fd 29
+160   0150 FD 2A 34 12   ld iy,(01234h)      ; fd 2a 34 12
+161   0154 FD 2B         dec iy              ; fd 2b
+162   0156 FD 2C         inc iyl             ; fd 2c
+163   0158 FD 2D         dec iyl             ; fd 2d
+164   015A FD 2E 12      defb 0fdh,02eh,012h ; fd 2e ; ld iyl,012h
+165   015D FD 34 01      inc (iy+001h)       ; fd 34 01
+166   0160 FD 35 01      dec (iy+001h)       ; fd 35 01
+167   0163 FD 36 01 12   ld (iy+001h),012h   ; fd 36 01 12
+168   0167 FD 39         add iy,sp           ; fd 39
+169   0169 FD 40 00      defb 0fdh,040h,000h ; fd 40 00 illegal sequence
+170   016C FD 44         ld b,iyh            ; fd 44
+171   016E FD 45         ld b,iyl            ; fd 45
+172   0170 FD 46 01      ld b,(iy+001h)      ; fd 46 01
+173   0173 FD 48 00      defb 0fdh,048h,000h ; fd 48 00 illegal sequence
+174   0176 FD 4C         ld c,iyh            ; fd 4c
+175   0178 FD 4D         ld c,iyl            ; fd 4d
+176   017A FD 4E 01      ld c,(iy+001h)      ; fd 4e 01
+177   017D FD 50 00      defb 0fdh,050h,000h ; fd 50 00 illegal sequence
+178   0180 FD 54         ld d,iyh            ; fd 54
+179   0182 FD 55         ld d,iyl            ; fd 55
+180   0184 FD 56 01      ld d,(iy+001h)      ; fd 56 01
+181   0187 FD 58 00      defb 0fdh,058h,000h ; fd 58 00 illegal sequence
+182   018A FD 5C         ld e,iyh            ; fd 5c
+183   018C FD 5D         ld e,iyl            ; fd 5d
+184   018E FD 5E 01      ld e,(iy+001h)      ; fd 5e 01
+185   0191 FD 60         ld iyh,b            ; fd 60
+186   0193 FD 68         ld iyl,b            ; fd 61
+187   0195 FD 62         ld iyh,d            ; fd 62
+188   0197 FD 63         ld iyh,e            ; fd 63
+189   0199 FD 64         ld iyh,iyh          ; fd 64
+190   019B FD 65         ld iyh,iyl          ; fd 65
+191   019D FD 66 01      ld h,(iy+001h)      ; fd 66 01
+192   01A0 FD 67         ld iyh,a            ; fd 67
+193   01A2 FD 68         ld iyl,b            ; fd 68
+194   01A4 FD 69         ld iyl,c            ; fd 69
+195   01A6 FD 6A         ld iyl,d            ; fd 6a
+196   01A8 FD 6B         ld iyl,e            ; fd 6b
+197   01AA FD 6C         ld iyl,iyh          ; fd 6c
+198   01AC FD 6D         ld iyl,iyl          ; fd 6d
+199   01AE FD 6E 01      ld l,(iy+001h)      ; fd 6e 01
+200   01B1 FD 6F         ld iyl,a            ; fd 6f
+201   01B3 FD 70 12      ld (iy+0x12),b      ; fd 70 12
+202   01B6 FD 71 12      ld (iy+0x12),c      ; fd 71 12
+203   01B9 FD 72 12      ld (iy+0x12),d      ; fd 72 12
+204   01BC FD 73 12      ld (iy+0x12),e      ; fd 73 12
+205   01BF FD 74 12      ld (iy+0x12),h      ; fd 74 12
+206   01C2 FD 75 12      ld (iy+0x12),l      ; fd 75 12
+207   01C5 FD 77 12      ld (iy+0x12),a      ; fd 77 12
+208   01C8 FD 78 00      defb 0fdh,078h,000h ; fd 78 00 illegal sequence
+209   01CB FD 7C         ld a,iyh            ; fd 7c
+210   01CD FD 7D         ld a,iyl            ; fd 7d
+211   01CF FD 7E 01      ld a,(iy+001h)      ; fd 7e 01
+212   01D2 FD 80 00      defb 0fdh,080h,000h ; fd 80 00 illegal sequence
+213   01D5 FD 84         add a,iyh           ; fd 84
+214   01D7 FD 85         add a,iyl           ; fd 85
+215   01D9 FD 86 01      add a,(iy+001h)     ; fd 86 01
+216   01DC FD 88 00      defb 0fdh,088h,000h ; fd 88 00 illegal sequence
+217   01DF FD 8C         adc a,iyh           ; fd 8c
+218   01E1 FD 8D         adc a,iyl           ; fd 8d
+219   01E3 FD 8E 01      adc a,(iy+001h)     ; fd 8e 01
+220   01E6 FD 90 00      defb 0fdh,090h,000h ; fd 90 00 illegal sequence
+221   01E9 FD 94         sub a,iyh           ; fd 94
+222   01EB FD 95         sub a,iyl           ; fd 95
+223   01ED FD 96 01      sub (iy+001h)       ; fd 96 01
+224   01F0 FD 98 00      defb 0fdh,098h,000h ; fd 98 00 illegal sequence
+225   01F3 FD 9C         sbc a,iyh           ; fd 9c
+226   01F5 FD 9D         sbc a,iyl           ; fd 9d
+227   01F7 FD 9E 01      sbc a,(iy+001h)     ; fd 9e 01
+228   01FA FD A0 00      defb 0fdh,0a0h,000h ; fd a0 00 illegal sequence
+229   01FD FD A4         and iyh             ; fd a4
+230   01FF FD A5         and iyl             ; fd a5
+231   0201 FD A6 01      and (iy+001h)       ; fd a6 01
+232   0204 FD A8 00      defb 0fdh,0a8h,000h ; fd a8 00 illegal sequence
+233   0207 FD AC         xor iyh             ; fd ac
+234   0209 FD AD         xor iyl             ; fd ad
+235   020B FD AE 01      xor (iy+001h)       ; fd ae 01
+236   020E FD B4         or iyh              ; fd b4
+237   0210 FD B5         or iyl              ; fd b5
+238   0212 FD B6 01      or (iy+001h)        ; fd b6 01
+239   0215 FD BC         cp iyh              ; fd bc
+240   0217 FD BD         cp iyl              ; fd bd
+241   0219 FD BE 01      cp (iy+001h)        ; fd be 01
+242   021C FD E1         pop iy              ; fd e1 
+243   021E FD E3         ex (sp),iy          ; fd e3
+244   0220 FD E5         push iy             ; fd e5
+245   0222 FD E9         jp (iy)             ; fd e9
+246   0224 FD F9         ld sp,iy            ; fd f9
+247   0226               
+248   0226             
+249   0226             ; ed ext
+250   0226             
+251   0226 ED 40         IN B,(C)
+252   0228 ED 41         OUT (C),B
+253   022A ED 42         SBC HL,BC
+254   022C ED 43 34 12   LD (0x1234),BC
+255   0230 ED 44         NEG
+256   0232 ED 45         RETN
+257   0234 ED 46         IM 0
+258   0236 ED 47         LD I,A
+259   0238 ED 48         IN C,(C)
+260   023A ED 49         OUT (C),C
+261   023C ED 4A         ADC HL,BC
+262   023E ED 4B 34 12   LD BC,(0x1234)
+263   0242 ED 4D         RETI
+264   0244 ED 4F         LD R,A
+265   0246 ED 50         IN D,(C)
+266   0248 ED 51         OUT (C),D
+267   024A ED 52         SBC HL,DE
+268   024C ED 53 34 12   LD (0x1234),DE
+269   0250 ED 56         IM 1
+270   0252 ED 57         LD A,I
+271   0254 ED 58         IN E,(C)
+272   0256 ED 59         OUT (C),E
+273   0258 ED 5A         ADC HL,DE
+274   025A ED 5B 34 12   LD DE,(0x1234)
+275   025E ED 5E         IM 2
+276   0260 ED 5F         LD A,R
+277   0262 ED 60         IN H,(C)
+278   0264 ED 61         OUT (C),H
+279   0266 ED 62         SBC HL,HL
+280   0268 ED 63 34 12   defb 0xed,0x63,0x34,0x12; LD (0x1234),HL ;(undef、22 nnの別名)
+281   026C ED 67         RRD
+282   026E ED 68         IN L,(C)
+283   0270 ED 69         OUT (C),L
+284   0272 ED 6A         ADC HL,HL
+285   0274 ED 6B 34 12   defb 0xed,0x6b,0x34,0x12; LD HL,(0x1234) ;(undef、2A nnの別名)
+286   0278 ED 6F         RLD
+287   027A ED 70         IN F,(C) ;(undef)
+288   027C ED 71         OUT (C),0 ;(undef)
+289   027E ED 72         SBC HL,SP
+290   0280 ED 73 34 12   LD (0x1234),SP
+291   0284 ED 78         IN A,(C)
+292   0286 ED 79         OUT (C),A
+293   0288 ED 7A         ADC HL,SP
+294   028A ED 7B 34 12   LD SP,(0x1234)
+295   028E ED A0         LDI
+296   0290 ED A1         CPI
+297   0292 ED A2         INI
+298   0294 ED A3         OUTI
+299   0296 ED A8         LDD
+300   0298 ED A9         CPD
+301   029A ED AA         IND
+302   029C ED AB         OUTD
+303   029E ED B0         LDIR
+304   02A0 ED B1         CPIR
+305   02A2 ED B2         INIR
+306   02A4 ED B3         OTIR
+307   02A6 ED B8         LDDR
+308   02A8 ED B9         CPDR
+309   02AA ED BA         INDR
+310   02AC ED BB         OTDR
+311   02AE             
+312   02AE             ; ddcb ext
+313   02AE             
+314   02AE               ; LD B,RLC(IX+0x12) ;(undef)
+315   02AE               ; LD C,RLC(IX+0x12) ;(undef)
+316   02AE               ; LD D,RLC(IX+0x12) ;(undef)
+317   02AE               ; LD E,RLC(IX+0x12) ;(undef)
+318   02AE               ; LD H,RLC(IX+0x12) ;(undef)
+319   02AE               ; LD L,RLC(IX+0x12) ;(undef)
+320   02AE DD CB 12 06   RLC (IX+0x12)
+321   02B2               ; LD A,RLC(IX+0x12) ;(undef)
+322   02B2               ; LD B,RRC(IX+0x12) ;(undef)
+323   02B2               ; LD C,RRC(IX+0x12) ;(undef)
+324   02B2               ; LD D,RRC(IX+0x12) ;(undef)
+325   02B2               ; LD E,RRC(IX+0x12) ;(undef)
+326   02B2               ; LD H,RRC(IX+0x12) ;(undef)
+327   02B2               ; LD L,RRC(IX+0x12) ;(undef)
+328   02B2 DD CB 12 0E   RRC (IX+0x12)
+329   02B6               ; LD A,RRC(IX+0x12) ;(undef)
+330   02B6               ; LD B,RL(IX+0x12) ;(undef)
+331   02B6               ; LD C,RL(IX+0x12) ;(undef)
+332   02B6               ; LD D,RL(IX+0x12) ;(undef)
+333   02B6               ; LD E,RL(IX+0x12) ;(undef)
+334   02B6               ; LD H,RL(IX+0x12) ;(undef)
+335   02B6               ; LD L,RL(IX+0x12) ;(undef)
+336   02B6 DD CB 12 16   RL (IX+0x12)
+337   02BA               ; LD A,RL(IX+0x12) ;(undef)
+338   02BA               ; LD B,RR(IX+0x12) ;(undef)
+339   02BA               ; LD C,RR(IX+0x12) ;(undef)
+340   02BA               ; LD D,RR(IX+0x12) ;(undef)
+341   02BA               ; LD E,RR(IX+0x12) ;(undef)
+342   02BA               ; LD H,RR(IX+0x12) ;(undef)
+343   02BA               ; LD L,RR(IX+0x12) ;(undef)
+344   02BA DD CB 12 1E   RR (IX+0x12)
+345   02BE               ; LD A,RR(IX+0x12) ;(undef)
+346   02BE               ; LD B,SLA(IX+0x12) ;(undef)
+347   02BE               ; LD C,SLA(IX+0x12) ;(undef)
+348   02BE               ; LD D,SLA(IX+0x12) ;(undef)
+349   02BE               ; LD E,SLA(IX+0x12) ;(undef)
+350   02BE               ; LD H,SLA(IX+0x12) ;(undef)
+351   02BE               ; LD L,SLA(IX+0x12) ;(undef)
+352   02BE DD CB 12 26   SLA (IX+0x12)
+353   02C2               ; LD A,SLA(IX+0x12) ;(undef)
+354   02C2               ; LD B,SRA(IX+0x12) ;(undef)
+355   02C2               ; LD C,SRA(IX+0x12) ;(undef)
+356   02C2               ; LD D,SRA(IX+0x12) ;(undef)
+357   02C2               ; LD E,SRA(IX+0x12) ;(undef)
+358   02C2               ; LD H,SRA(IX+0x12) ;(undef)
+359   02C2               ; LD L,SRA(IX+0x12) ;(undef)
+360   02C2 DD CB 12 2E   SRA (IX+0x12)
+361   02C6               ; LD A,SRA(IX+0x12) ;(undef)
+362   02C6               ; LD B,SLL(IX+0x12) ;(undef)
+363   02C6               ; LD C,SLL(IX+0x12) ;(undef)
+364   02C6               ; LD D,SLL(IX+0x12) ;(undef)
+365   02C6               ; LD E,SLL(IX+0x12) ;(undef)
+366   02C6               ; LD H,SLL(IX+0x12) ;(undef)
+367   02C6               ; LD L,SLL(IX+0x12) ;(undef)
+368   02C6 DD CB 12 36   SLL (IX+0x12) ;(undef)
+369   02CA               ; LD A,SLL(IX+0x12) ;(undef)
+370   02CA               ; LD B,SRL(IX+0x12) ;(undef)
+371   02CA               ; LD C,SRL(IX+0x12) ;(undef)
+372   02CA               ; LD D,SRL(IX+0x12) ;(undef)
+373   02CA               ; LD E,SRL(IX+0x12) ;(undef)
+374   02CA               ; LD H,SRL(IX+0x12) ;(undef)
+375   02CA               ; LD L,SRL(IX+0x12) ;(undef)
+376   02CA DD CB 12 3E   SRL (IX+0x12)
+377   02CE               ; LD A,SRL(IX+0x12) ;(undef)
+378   02CE DD CB 12 46   BIT 0,(IX+0x12)
+379   02D2 DD CB 12 4E   BIT 1,(IX+0x12)
+380   02D6 DD CB 12 56   BIT 2,(IX+0x12)
+381   02DA DD CB 12 5E   BIT 3,(IX+0x12)
+382   02DE DD CB 12 66   BIT 4,(IX+0x12)
+383   02E2 DD CB 12 6E   BIT 5,(IX+0x12)
+384   02E6 DD CB 12 76   BIT 6,(IX+0x12)
+385   02EA DD CB 12 7E   BIT 7,(IX+0x12)
+386   02EE               ; LD B,RES 0,(IX+0x12) ;(undef)
+387   02EE               ; LD C,RES 0,(IX+0x12) ;(undef)
+388   02EE               ; LD D,RES 0,(IX+0x12) ;(undef)
+389   02EE               ; LD E,RES 0,(IX+0x12) ;(undef)
+390   02EE               ; LD H,RES 0,(IX+0x12) ;(undef)
+391   02EE               ; LD L,RES 0,(IX+0x12) ;(undef)
+392   02EE DD CB 12 86   RES 0,(IX+0x12)
+393   02F2               ; LD A,RES 0,(IX+0x12) ;(undef)
+394   02F2               ; LD B,RES 1,(IX+0x12) ;(undef)
+395   02F2               ; LD C,RES 1,(IX+0x12) ;(undef)
+396   02F2               ; LD D,RES 1,(IX+0x12) ;(undef)
+397   02F2               ; LD E,RES 1,(IX+0x12) ;(undef)
+398   02F2               ; LD H,RES 1,(IX+0x12) ;(undef)
+399   02F2               ; LD L,RES 1,(IX+0x12) ;(undef)
+400   02F2 DD CB 12 8E   RES 1,(IX+0x12)
+401   02F6               ; LD A,RES 1,(IX+0x12) ;(undef)
+402   02F6               ; LD B,RES 2,(IX+0x12) ;(undef)
+403   02F6               ; LD C,RES 2,(IX+0x12) ;(undef)
+404   02F6               ; LD D,RES 2,(IX+0x12) ;(undef)
+405   02F6               ; LD E,RES 2,(IX+0x12) ;(undef)
+406   02F6               ; LD H,RES 2,(IX+0x12) ;(undef)
+407   02F6               ; LD L,RES 2,(IX+0x12) ;(undef)
+408   02F6 DD CB 12 96   RES 2,(IX+0x12)
+409   02FA               ; LD A,RES 2,(IX+0x12) ;(undef)
+410   02FA               ; LD B,RES 3,(IX+0x12) ;(undef)
+411   02FA               ; LD C,RES 3,(IX+0x12) ;(undef)
+412   02FA               ; LD D,RES 3,(IX+0x12) ;(undef)
+413   02FA               ; LD E,RES 3,(IX+0x12) ;(undef)
+414   02FA               ; LD H,RES 3,(IX+0x12) ;(undef)
+415   02FA               ; LD L,RES 3,(IX+0x12) ;(undef)
+416   02FA DD CB 12 9E   RES 3,(IX+0x12)
+417   02FE               ; LD A,RES 3,(IX+0x12) ;(undef)
+418   02FE               ; LD B,RES 4,(IX+0x12) ;(undef)
+419   02FE               ; LD C,RES 4,(IX+0x12) ;(undef)
+420   02FE               ; LD D,RES 4,(IX+0x12) ;(undef)
+421   02FE               ; LD E,RES 4,(IX+0x12) ;(undef)
+422   02FE               ; LD H,RES 4,(IX+0x12) ;(undef)
+423   02FE               ; LD L,RES 4,(IX+0x12) ;(undef)
+424   02FE DD CB 12 A6   RES 4,(IX+0x12)
+425   0302               ; LD A,RES 4,(IX+0x12) ;(undef)
+426   0302               ; LD B,RES 5,(IX+0x12) ;(undef)
+427   0302               ; LD C,RES 5,(IX+0x12) ;(undef)
+428   0302               ; LD D,RES 5,(IX+0x12) ;(undef)
+429   0302               ; LD E,RES 5,(IX+0x12) ;(undef)
+430   0302               ; LD H,RES 5,(IX+0x12) ;(undef)
+431   0302               ; LD L,RES 5,(IX+0x12) ;(undef)
+432   0302 DD CB 12 AE   RES 5,(IX+0x12)
+433   0306               ; LD A,RES 5,(IX+0x12) ;(undef)
+434   0306               ; LD B,RES 6,(IX+0x12) ;(undef)
+435   0306               ; LD C,RES 6,(IX+0x12) ;(undef)
+436   0306               ; LD D,RES 6,(IX+0x12) ;(undef)
+437   0306               ; LD E,RES 6,(IX+0x12) ;(undef)
+438   0306               ; LD H,RES 6,(IX+0x12) ;(undef)
+439   0306               ; LD L,RES 6,(IX+0x12) ;(undef)
+440   0306 DD CB 12 B6   RES 6,(IX+0x12)
+441   030A               ; LD A,RES 6,(IX+0x12) ;(undef)
+442   030A               ; LD B,RES 7,(IX+0x12) ;(undef)
+443   030A               ; LD C,RES 7,(IX+0x12) ;(undef)
+444   030A               ; LD D,RES 7,(IX+0x12) ;(undef)
+445   030A               ; LD E,RES 7,(IX+0x12) ;(undef)
+446   030A               ; LD H,RES 7,(IX+0x12) ;(undef)
+447   030A               ; LD L,RES 7,(IX+0x12) ;(undef)
+448   030A DD CB 12 BE   RES 7,(IX+0x12)
+449   030E               ; LD A,RES 7,(IX+0x12) ;(undef)
+450   030E               ; LD B,SET 0,(IX+0x12) ;(undef)
+451   030E               ; LD C,SET 0,(IX+0x12) ;(undef)
+452   030E               ; LD D,SET 0,(IX+0x12) ;(undef)
+453   030E               ; LD E,SET 0,(IX+0x12) ;(undef)
+454   030E               ; LD H,SET 0,(IX+0x12) ;(undef)
+455   030E               ; LD L,SET 0,(IX+0x12) ;(undef)
+456   030E DD CB 12 C6   SET 0,(IX+0x12)
+457   0312               ; LD A,SET 0,(IX+0x12) ;(undef)
+458   0312               ; LD B,SET 1,(IX+0x12) ;(undef)
+459   0312               ; LD C,SET 1,(IX+0x12) ;(undef)
+460   0312               ; LD D,SET 1,(IX+0x12) ;(undef)
+461   0312               ; LD E,SET 1,(IX+0x12) ;(undef)
+462   0312               ; LD H,SET 1,(IX+0x12) ;(undef)
+463   0312               ; LD L,SET 1,(IX+0x12) ;(undef)
+464   0312 DD CB 12 CE   SET 1,(IX+0x12)
+465   0316               ; LD A,SET 1,(IX+0x12) ;(undef)
+466   0316               ; LD B,SET 2,(IX+0x12) ;(undef)
+467   0316               ; LD C,SET 2,(IX+0x12) ;(undef)
+468   0316               ; LD D,SET 2,(IX+0x12) ;(undef)
+469   0316               ; LD E,SET 2,(IX+0x12) ;(undef)
+470   0316               ; LD H,SET 2,(IX+0x12) ;(undef)
+471   0316               ; LD L,SET 2,(IX+0x12) ;(undef)
+472   0316 DD CB 12 D6   SET 2,(IX+0x12)
+473   031A               ; LD A,SET 2,(IX+0x12) ;(undef)
+474   031A               ; LD B,SET 3,(IX+0x12) ;(undef)
+475   031A               ; LD C,SET 3,(IX+0x12) ;(undef)
+476   031A               ; LD D,SET 3,(IX+0x12) ;(undef)
+477   031A               ; LD E,SET 3,(IX+0x12) ;(undef)
+478   031A               ; LD H,SET 3,(IX+0x12) ;(undef)
+479   031A               ; LD L,SET 3,(IX+0x12) ;(undef)
+480   031A DD CB 12 DE   SET 3,(IX+0x12)
+481   031E               ; LD A,SET 3,(IX+0x12) ;(undef)
+482   031E               ; LD B,SET 4,(IX+0x12) ;(undef)
+483   031E               ; LD C,SET 4,(IX+0x12) ;(undef)
+484   031E               ; LD D,SET 4,(IX+0x12) ;(undef)
+485   031E               ; LD E,SET 4,(IX+0x12) ;(undef)
+486   031E               ; LD H,SET 4,(IX+0x12) ;(undef)
+487   031E               ; LD L,SET 4,(IX+0x12) ;(undef)
+488   031E DD CB 12 E6   SET 4,(IX+0x12)
+489   0322               ; LD A,SET 4,(IX+0x12) ;(undef)
+490   0322               ; LD B,SET 5,(IX+0x12) ;(undef)
+491   0322               ; LD C,SET 5,(IX+0x12) ;(undef)
+492   0322               ; LD D,SET 5,(IX+0x12) ;(undef)
+493   0322               ; LD E,SET 5,(IX+0x12) ;(undef)
+494   0322               ; LD H,SET 5,(IX+0x12) ;(undef)
+495   0322               ; LD L,SET 5,(IX+0x12) ;(undef)
+496   0322 DD CB 12 EE   SET 5,(IX+0x12)
+497   0326               ; LD A,SET 5,(IX+0x12) ;(undef)
+498   0326               ; LD B,SET 6,(IX+0x12) ;(undef)
+499   0326               ; LD C,SET 6,(IX+0x12) ;(undef)
+500   0326               ; LD D,SET 6,(IX+0x12) ;(undef)
+501   0326               ; LD E,SET 6,(IX+0x12) ;(undef)
+502   0326               ; LD H,SET 6,(IX+0x12) ;(undef)
+503   0326               ; LD L,SET 6,(IX+0x12) ;(undef)
+504   0326 DD CB 12 F6   SET 6,(IX+0x12)
+505   032A               ; LD A,SET 6,(IX+0x12) ;(undef)
+506   032A               ; LD B,SET 7,(IX+0x12) ;(undef)
+507   032A               ; LD C,SET 7,(IX+0x12) ;(undef)
+508   032A               ; LD D,SET 7,(IX+0x12) ;(undef)
+509   032A               ; LD E,SET 7,(IX+0x12) ;(undef)
+510   032A               ; LD H,SET 7,(IX+0x12) ;(undef)
+511   032A               ; LD L,SET 7,(IX+0x12) ;(undef)
+512   032A DD CB 12 FE   SET 7,(IX+0x12)
+513   032E               ; LD A,SET 7,(IX+0x12) ;(undef)
+514   032E             
+515   032E             ; fdcb ext
+516   032E             
+testd0.s80 line 517: Label not found: RLC
+testd0.s80 line 517: Unexpected: (IY+0x12) 
+517   032E 06 00         LD B,RLC(IY+0x12) ;(undef)
+518   0330               ; LD C,RLC(IY+0x12) ;(undef)
+519   0330               ; LD D,RLC(IY+0x12) ;(undef)
+520   0330               ; LD E,RLC(IY+0x12) ;(undef)
+521   0330               ; LD H,RLC(IY+0x12) ;(undef)
+522   0330               ; LD L,RLC(IY+0x12) ;(undef)
+523   0330 FD CB 12 06   RLC (IY+0x12)
+524   0334               ; LD A,RLC(IY+0x12) ;(undef)
+525   0334               ; LD B,RRC(IY+0x12) ;(undef)
+526   0334               ; LD C,RRC(IY+0x12) ;(undef)
+527   0334               ; LD D,RRC(IY+0x12) ;(undef)
+528   0334               ; LD E,RRC(IY+0x12) ;(undef)
+529   0334               ; LD H,RRC(IY+0x12) ;(undef)
+530   0334               ; LD L,RRC(IY+0x12) ;(undef)
+531   0334 FD CB 12 0E   RRC (IY+0x12)
+532   0338               ; LD A,RRC(IY+0x12) ;(undef)
+533   0338               ; LD B,RL(IY+0x12) ;(undef)
+534   0338               ; LD C,RL(IY+0x12) ;(undef)
+535   0338               ; LD D,RL(IY+0x12) ;(undef)
+536   0338               ; LD E,RL(IY+0x12) ;(undef)
+537   0338               ; LD H,RL(IY+0x12) ;(undef)
+538   0338               ; LD L,RL(IY+0x12) ;(undef)
+539   0338 FD CB 12 16   RL (IY+0x12)
+540   033C               ; LD A,RL(IY+0x12) ;(undef)
+541   033C               ; LD B,RR(IY+0x12) ;(undef)
+542   033C               ; LD C,RR(IY+0x12) ;(undef)
+543   033C               ; LD D,RR(IY+0x12) ;(undef)
+544   033C               ; LD E,RR(IY+0x12) ;(undef)
+545   033C               ; LD H,RR(IY+0x12) ;(undef)
+546   033C               ; LD L,RR(IY+0x12) ;(undef)
+547   033C FD CB 12 1E   RR (IY+0x12)
+548   0340               ; LD A,RR(IY+0x12) ;(undef)
+549   0340               ; LD B,SLA(IY+0x12) ;(undef)
+550   0340               ; LD C,SLA(IY+0x12) ;(undef)
+551   0340               ; LD D,SLA(IY+0x12) ;(undef)
+552   0340               ; LD E,SLA(IY+0x12) ;(undef)
+553   0340               ; LD H,SLA(IY+0x12) ;(undef)
+554   0340               ; LD L,SLA(IY+0x12) ;(undef)
+555   0340 FD CB 12 26   SLA (IY+0x12)
+556   0344               ; LD A,SLA(IY+0x12) ;(undef)
+557   0344               ; LD B,SRA(IY+0x12) ;(undef)
+558   0344               ; LD C,SRA(IY+0x12) ;(undef)
+559   0344               ; LD D,SRA(IY+0x12) ;(undef)
+560   0344               ; LD E,SRA(IY+0x12) ;(undef)
+561   0344               ; LD H,SRA(IY+0x12) ;(undef)
+562   0344               ; LD L,SRA(IY+0x12) ;(undef)
+563   0344 FD CB 12 2E   SRA (IY+0x12)
+564   0348               ; LD A,SRA(IY+0x12) ;(undef)
+565   0348               ; LD B,SLL(IY+0x12) ;(undef)
+566   0348               ; LD C,SLL(IY+0x12) ;(undef)
+567   0348               ; LD D,SLL(IY+0x12) ;(undef)
+568   0348               ; LD E,SLL(IY+0x12) ;(undef)
+569   0348               ; LD H,SLL(IY+0x12) ;(undef)
+570   0348               ; LD L,SLL(IY+0x12) ;(undef)
+571   0348 FD CB 12 36   SLL (IY+0x12) ;(undef)
+572   034C               ; LD A,SLL(IY+0x12) ;(undef)
+573   034C               ; LD B,SRL(IY+0x12) ;(undef)
+574   034C               ; LD C,SRL(IY+0x12) ;(undef)
+575   034C               ; LD D,SRL(IY+0x12) ;(undef)
+576   034C               ; LD E,SRL(IY+0x12) ;(undef)
+577   034C               ; LD H,SRL(IY+0x12) ;(undef)
+578   034C               ; LD L,SRL(IY+0x12) ;(undef)
+579   034C FD CB 12 3E   SRL (IY+0x12)
+580   0350               ; LD A,SRL(IY+0x12) ;(undef)
+581   0350 FD CB 12 46   BIT 0,(IY+0x12)
+582   0354 FD CB 12 4E   BIT 1,(IY+0x12)
+583   0358 FD CB 12 56   BIT 2,(IY+0x12)
+584   035C FD CB 12 5E   BIT 3,(IY+0x12)
+585   0360 FD CB 12 66   BIT 4,(IY+0x12)
+586   0364 FD CB 12 6E   BIT 5,(IY+0x12)
+587   0368 FD CB 12 76   BIT 6,(IY+0x12)
+588   036C FD CB 12 7E   BIT 7,(IY+0x12)
+589   0370               ; LD B,RES 0,(IY+0x12) ;(undef)
+590   0370               ; LD C,RES 0,(IY+0x12) ;(undef)
+591   0370               ; LD D,RES 0,(IY+0x12) ;(undef)
+592   0370               ; LD E,RES 0,(IY+0x12) ;(undef)
+593   0370               ; LD H,RES 0,(IY+0x12) ;(undef)
+594   0370               ; LD L,RES 0,(IY+0x12) ;(undef)
+595   0370 FD CB 12 86   RES 0,(IY+0x12)
+596   0374               ; LD A,RES 0,(IY+0x12) ;(undef)
+597   0374               ; LD B,RES 1,(IY+0x12) ;(undef)
+598   0374               ; LD C,RES 1,(IY+0x12) ;(undef)
+599   0374               ; LD D,RES 1,(IY+0x12) ;(undef)
+600   0374               ; LD E,RES 1,(IY+0x12) ;(undef)
+601   0374               ; LD H,RES 1,(IY+0x12) ;(undef)
+602   0374               ; LD L,RES 1,(IY+0x12) ;(undef)
+603   0374 FD CB 12 8E   RES 1,(IY+0x12)
+604   0378               ; LD A,RES 1,(IY+0x12) ;(undef)
+605   0378               ; LD B,RES 2,(IY+0x12) ;(undef)
+606   0378               ; LD C,RES 2,(IY+0x12) ;(undef)
+607   0378               ; LD D,RES 2,(IY+0x12) ;(undef)
+608   0378               ; LD E,RES 2,(IY+0x12) ;(undef)
+609   0378               ; LD H,RES 2,(IY+0x12) ;(undef)
+610   0378               ; LD L,RES 2,(IY+0x12) ;(undef)
+611   0378 FD CB 12 96   RES 2,(IY+0x12)
+612   037C               ; LD A,RES 2,(IY+0x12) ;(undef)
+613   037C               ; LD B,RES 3,(IY+0x12) ;(undef)
+614   037C               ; LD C,RES 3,(IY+0x12) ;(undef)
+615   037C               ; LD D,RES 3,(IY+0x12) ;(undef)
+616   037C               ; LD E,RES 3,(IY+0x12) ;(undef)
+617   037C               ; LD H,RES 3,(IY+0x12) ;(undef)
+618   037C               ; LD L,RES 3,(IY+0x12) ;(undef)
+619   037C FD CB 12 9E   RES 3,(IY+0x12)
+620   0380               ; LD A,RES 3,(IY+0x12) ;(undef)
+621   0380               ; LD B,RES 4,(IY+0x12) ;(undef)
+622   0380               ; LD C,RES 4,(IY+0x12) ;(undef)
+623   0380               ; LD D,RES 4,(IY+0x12) ;(undef)
+624   0380               ; LD E,RES 4,(IY+0x12) ;(undef)
+625   0380               ; LD H,RES 4,(IY+0x12) ;(undef)
+626   0380               ; LD L,RES 4,(IY+0x12) ;(undef)
+627   0380 FD CB 12 A6   RES 4,(IY+0x12)
+628   0384               ; LD A,RES 4,(IY+0x12) ;(undef)
+629   0384               ; LD B,RES 5,(IY+0x12) ;(undef)
+630   0384               ; LD C,RES 5,(IY+0x12) ;(undef)
+631   0384               ; LD D,RES 5,(IY+0x12) ;(undef)
+632   0384               ; LD E,RES 5,(IY+0x12) ;(undef)
+633   0384               ; LD H,RES 5,(IY+0x12) ;(undef)
+634   0384               ; LD L,RES 5,(IY+0x12) ;(undef)
+635   0384 FD CB 12 AE   RES 5,(IY+0x12)
+636   0388               ; LD A,RES 5,(IY+0x12) ;(undef)
+637   0388               ; LD B,RES 6,(IY+0x12) ;(undef)
+638   0388               ; LD C,RES 6,(IY+0x12) ;(undef)
+639   0388               ; LD D,RES 6,(IY+0x12) ;(undef)
+640   0388               ; LD E,RES 6,(IY+0x12) ;(undef)
+641   0388               ; LD H,RES 6,(IY+0x12) ;(undef)
+642   0388               ; LD L,RES 6,(IY+0x12) ;(undef)
+643   0388 FD CB 12 B6   RES 6,(IY+0x12)
+644   038C               ; LD A,RES 6,(IY+0x12) ;(undef)
+645   038C               ; LD B,RES 7,(IY+0x12) ;(undef)
+646   038C               ; LD C,RES 7,(IY+0x12) ;(undef)
+647   038C               ; LD D,RES 7,(IY+0x12) ;(undef)
+648   038C               ; LD E,RES 7,(IY+0x12) ;(undef)
+649   038C               ; LD H,RES 7,(IY+0x12) ;(undef)
+650   038C               ; LD L,RES 7,(IY+0x12) ;(undef)
+651   038C FD CB 12 BE   RES 7,(IY+0x12)
+652   0390               ; LD A,RES 7,(IY+0x12) ;(undef)
+653   0390               ; LD B,SET 0,(IY+0x12) ;(undef)
+654   0390               ; LD C,SET 0,(IY+0x12) ;(undef)
+655   0390               ; LD D,SET 0,(IY+0x12) ;(undef)
+656   0390               ; LD E,SET 0,(IY+0x12) ;(undef)
+657   0390               ; LD H,SET 0,(IY+0x12) ;(undef)
+658   0390               ; LD L,SET 0,(IY+0x12) ;(undef)
+659   0390 FD CB 12 C6   SET 0,(IY+0x12)
+660   0394               ; LD A,SET 0,(IY+0x12) ;(undef)
+661   0394               ; LD B,SET 1,(IY+0x12) ;(undef)
+662   0394               ; LD C,SET 1,(IY+0x12) ;(undef)
+663   0394               ; LD D,SET 1,(IY+0x12) ;(undef)
+664   0394               ; LD E,SET 1,(IY+0x12) ;(undef)
+665   0394               ; LD H,SET 1,(IY+0x12) ;(undef)
+666   0394               ; LD L,SET 1,(IY+0x12) ;(undef)
+667   0394 FD CB 12 CE   SET 1,(IY+0x12)
+668   0398               ; LD A,SET 1,(IY+0x12) ;(undef)
+669   0398               ; LD B,SET 2,(IY+0x12) ;(undef)
+670   0398               ; LD C,SET 2,(IY+0x12) ;(undef)
+671   0398               ; LD D,SET 2,(IY+0x12) ;(undef)
+672   0398               ; LD E,SET 2,(IY+0x12) ;(undef)
+673   0398               ; LD H,SET 2,(IY+0x12) ;(undef)
+674   0398               ; LD L,SET 2,(IY+0x12) ;(undef)
+675   0398 FD CB 12 D6   SET 2,(IY+0x12)
+676   039C               ; LD A,SET 2,(IY+0x12) ;(undef)
+677   039C               ; LD B,SET 3,(IY+0x12) ;(undef)
+678   039C               ; LD C,SET 3,(IY+0x12) ;(undef)
+679   039C               ; LD D,SET 3,(IY+0x12) ;(undef)
+680   039C               ; LD E,SET 3,(IY+0x12) ;(undef)
+681   039C               ; LD H,SET 3,(IY+0x12) ;(undef)
+682   039C               ; LD L,SET 3,(IY+0x12) ;(undef)
+683   039C FD CB 12 DE   SET 3,(IY+0x12)
+684   03A0               ; LD A,SET 3,(IY+0x12) ;(undef)
+685   03A0               ; LD B,SET 4,(IY+0x12) ;(undef)
+686   03A0               ; LD C,SET 4,(IY+0x12) ;(undef)
+687   03A0               ; LD D,SET 4,(IY+0x12) ;(undef)
+688   03A0               ; LD E,SET 4,(IY+0x12) ;(undef)
+689   03A0               ; LD H,SET 4,(IY+0x12) ;(undef)
+690   03A0               ; LD L,SET 4,(IY+0x12) ;(undef)
+691   03A0 FD CB 12 E6   SET 4,(IY+0x12)
+692   03A4               ; LD A,SET 4,(IY+0x12) ;(undef)
+693   03A4               ; LD B,SET 5,(IY+0x12) ;(undef)
+694   03A4               ; LD C,SET 5,(IY+0x12) ;(undef)
+695   03A4               ; LD D,SET 5,(IY+0x12) ;(undef)
+696   03A4               ; LD E,SET 5,(IY+0x12) ;(undef)
+697   03A4               ; LD H,SET 5,(IY+0x12) ;(undef)
+698   03A4               ; LD L,SET 5,(IY+0x12) ;(undef)
+699   03A4 FD CB 12 EE   SET 5,(IY+0x12)
+700   03A8               ; LD A,SET 5,(IY+0x12) ;(undef)
+701   03A8               ; LD B,SET 6,(IY+0x12) ;(undef)
+702   03A8               ; LD C,SET 6,(IY+0x12) ;(undef)
+703   03A8               ; LD D,SET 6,(IY+0x12) ;(undef)
+704   03A8               ; LD E,SET 6,(IY+0x12) ;(undef)
+705   03A8               ; LD H,SET 6,(IY+0x12) ;(undef)
+706   03A8               ; LD L,SET 6,(IY+0x12) ;(undef)
+707   03A8 FD CB 12 F6   SET 6,(IY+0x12)
+708   03AC               ; LD A,SET 6,(IY+0x12) ;(undef)
+709   03AC               ; LD B,SET 7,(IY+0x12) ;(undef)
+710   03AC               ; LD C,SET 7,(IY+0x12) ;(undef)
+711   03AC               ; LD D,SET 7,(IY+0x12) ;(undef)
+712   03AC               ; LD E,SET 7,(IY+0x12) ;(undef)
+713   03AC               ; LD H,SET 7,(IY+0x12) ;(undef)
+714   03AC               ; LD L,SET 7,(IY+0x12) ;(undef)
+715   03AC FD CB 12 FE   SET 7,(IY+0x12)
+716   03B0               ; LD A,SET 7,(IY+0x12) ;(undef)
+717   03B0             

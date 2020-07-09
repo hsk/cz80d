@@ -1,0 +1,33 @@
+01   0000 60            LD     H,B
+02   0001 61            LD     H,C
+03   0002 62            LD     H,D
+04   0003 63            LD     H,E
+05   0004 64            LD     H,H
+06   0005 65            LD     H,L
+07   0006 66            LD     H,(HL)
+08   0007 67            LD     H,A
+09   0008 68            LD     L,B
+10   0009 69            LD     L,C
+11   000A 6A            LD     L,D
+12   000B 6B            LD     L,E
+13   000C 6C            LD     L,H
+14   000D 6D            LD     L,L
+15   000E 6E            LD     L,(HL)
+16   000F 6F            LD     L,A
+17   0010             
+18   0010 70            LD     (HL),B
+19   0011 71            LD     (HL),C
+20   0012 72            LD     (HL),D
+21   0013 73            LD     (HL),E
+22   0014 74            LD     (HL),H
+23   0015 75            LD     (HL),L
+24   0016 76            HALT
+25   0017 77            LD     (HL),A
+26   0018 78            LD     A,B
+27   0019 79            LD     A,C
+28   001A 7A            LD     A,D
+29   001B 7B            LD     A,E
+30   001C 7C            LD     A,H
+31   001D 7D            LD     A,L
+32   001E 7E            LD     A,(HL)
+33   001F 7F            LD     A,A

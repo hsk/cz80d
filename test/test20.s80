@@ -1,0 +1,16 @@
+    JR     NZ,0x1
+    LD     HL,0x1234
+    LD     (0x1234),HL
+    INC    HL
+    INC    H
+    DEC    H
+    LD     H,0x12
+    DAA
+    JR     Z,0x12
+    ADD    HL,HL
+    LD     HL,(0x12)
+    DEC    HL
+    INC    L
+    DEC    L
+    LD     L,0x12
+    CPL

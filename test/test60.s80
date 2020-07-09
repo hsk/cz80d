@@ -1,0 +1,33 @@
+  LD     H,B
+  LD     H,C
+  LD     H,D
+  LD     H,E
+  LD     H,H
+  LD     H,L
+  LD     H,(HL)
+  LD     H,A
+  LD     L,B
+  LD     L,C
+  LD     L,D
+  LD     L,E
+  LD     L,H
+  LD     L,L
+  LD     L,(HL)
+  LD     L,A
+
+  LD     (HL),B
+  LD     (HL),C
+  LD     (HL),D
+  LD     (HL),E
+  LD     (HL),H
+  LD     (HL),L
+  HALT
+  LD     (HL),A
+  LD     A,B
+  LD     A,C
+  LD     A,D
+  LD     A,E
+  LD     A,H
+  LD     A,L
+  LD     A,(HL)
+  LD     A,A

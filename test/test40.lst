@@ -1,0 +1,16 @@
+01   0000 40            LD     B,B
+02   0001 41            LD     B,C
+03   0002 42            LD     B,D
+04   0003 43            LD     B,E
+05   0004 44            LD     B,H
+06   0005 45            LD     B,L
+07   0006 46            LD     B,(HL)
+08   0007 47            LD     B,A
+09   0008 48            LD     C,B
+10   0009 49            LD     C,C
+11   000A 4A            LD     C,D
+12   000B 4B            LD     C,E
+13   000C 4C            LD     C,H
+14   000D 4D            LD     C,L
+15   000E 4E            LD     C,(HL)
+16   000F 4F            LD     C,A

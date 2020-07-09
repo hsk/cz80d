@@ -1,0 +1,18 @@
+01   0000             lbl
+02   0000 10 FE         djnz lbl ; 0x10
+03   0002 11 34 12      ld de,1234h
+04   0005 12            ld (de),a
+05   0006 13            inc de
+06   0007 14            inc d
+07   0008 15            dec d
+08   0009 16 12         ld d,12h
+09   000B 17            rla
+10   000C 18 00         jr .next
+11   000E             .next
+12   000E 19            add hl,de
+13   000F 1A            ld a,(de)
+14   0010 1B            dec de
+15   0011 1C            inc e
+16   0012 1D            dec e
+17   0013 1E 01         ld e,01h
+18   0015 1F            rra

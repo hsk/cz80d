@@ -1,0 +1,16 @@
+  JR     NC,0x12
+  LD     SP,0x1234
+  LD     (0x1234),A
+  INC    SP
+  INC    (HL)
+  DEC    (HL)
+  LD     (HL),0x12
+  SCF
+  JR     C,0x12
+  ADD    HL,SP
+  LD    A,(0x1234)
+  DEC    SP
+  INC    A
+  DEC    A
+  LD     A,0x12
+  CCF

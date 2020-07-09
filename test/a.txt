@@ -1,0 +1,71 @@
+; z80dasm 1.1.5
+; command line: z80dasm -t a.bin
+
+	org	00100h
+
+	defb 0fdh,004h,000h	;illegal sequence		;0100	fd 04 00 	. . . 
+	defb 0fdh,005h,000h	;illegal sequence		;0103	fd 05 00 	. . . 
+	add iy,bc		;0106	fd 09 	. . 
+	add iy,de		;0108	fd 19 	. . 
+	ld iy,01234h		;010a	fd 21 34 12 	. ! 4 . 
+	ld (01234h),iy		;010e	fd 22 34 12 	. " 4 . 
+	inc iy		;0112	fd 23 	. # 
+	defb 0fdh,026h,012h	;ld iyh,012h		;0114	fd 26 12 	. & . 
+	add iy,iy		;0117	fd 29 	. ) 
+	ld iy,(01234h)		;0119	fd 2a 34 12 	. * 4 . 
+	dec iy		;011d	fd 2b 	. + 
+	defb 0fdh,02eh,012h	;ld iyl,012h		;011f	fd 2e 12 	. . . 
+	inc (iy+001h)		;0122	fd 34 01 	. 4 . 
+	dec (iy+001h)		;0125	fd 35 01 	. 5 . 
+	ld (iy+001h),012h		;0128	fd 36 01 12 	. 6 . . 
+	add iy,sp		;012c	fd 39 	. 9 
+	ld b,(iy+001h)		;012e	fd 46 01 	. F . 
+	ld c,(iy+001h)		;0131	fd 4e 01 	. N . 
+	defb 0fdh,050h,0fdh	;illegal sequence		;0134	fd 50 fd 	. P . 
+	ld d,(hl)			;0137	56 	V 
+	ld bc,058fdh		;0138	01 fd 58 	. . X 
+	ld e,(iy+001h)		;013b	fd 5e 01 	. ^ . 
+	ld h,(iy+001h)		;013e	fd 66 01 	. f . 
+	defb 0fdh,068h	;ld iyl,b		;0141	fd 68 	. h 
+	ld l,(iy+001h)		;0143	fd 6e 01 	. n . 
+	ld (iy-003h),b		;0146	fd 70 fd 	. p . 
+	halt			;0149	76 	v 
+	ld bc,078fdh		;014a	01 fd 78 	. . x 
+	ld a,(iy+001h)		;014d	fd 7e 01 	. ~ . 
+	add a,(iy+001h)		;0150	fd 86 01 	. . . 
+	defb 0fdh,088h,000h	;illegal sequence		;0153	fd 88 00 	. . . 
+	adc a,(iy+001h)		;0156	fd 8e 01 	. . . 
+	defb 0fdh,090h,000h	;illegal sequence		;0159	fd 90 00 	. . . 
+	sub (iy+001h)		;015c	fd 96 01 	. . . 
+	defb 0fdh,098h,000h	;illegal sequence		;015f	fd 98 00 	. . . 
+	sbc a,(iy+001h)		;0162	fd 9e 01 	. . . 
+	defb 0fdh,0a0h,000h	;illegal sequence		;0165	fd a0 00 	. . . 
+	and (iy+001h)		;0168	fd a6 01 	. . . 
+	defb 0fdh,0a8h,000h	;illegal sequence		;016b	fd a8 00 	. . . 
+	xor (iy+001h)		;016e	fd ae 01 	. . . 
+	defb 0fdh,0b4h	;or iyh		;0171	fd b4 	. . 
+	nop			;0173	00 	. 
+	defb 0fdh,0b5h	;or iyl		;0174	fd b5 	. . 
+	nop			;0176	00 	. 
+	or (iy+001h)		;0177	fd b6 01 	. . . 
+	defb 0fdh,0bah,000h	;illegal sequence		;017a	fd ba 00 	. . . 
+	defb 0fdh,0bbh,000h	;illegal sequence		;017d	fd bb 00 	. . . 
+	defb 0fdh,0bch	;cp iyh		;0180	fd bc 	. . 
+	nop			;0182	00 	. 
+	defb 0fdh,0bdh	;cp iyl		;0183	fd bd 	. . 
+	nop			;0185	00 	. 
+	cp (iy+001h)		;0186	fd be 01 	. . . 
+	rlc (iy+001h)		;0189	fd cb 01 06 	. . . . 
+	rrc (iy+001h)		;018d	fd cb 01 0e 	. . . . 
+	rl (iy+001h)		;0191	fd cb 01 16 	. . . . 
+	rr (iy+001h)		;0195	fd cb 01 1e 	. . . . 
+	sla (iy+001h)		;0199	fd cb 01 26 	. . . & 
+	sra (iy+001h)		;019d	fd cb 01 2e 	. . . . 
+	sli (iy+001h)		;01a1	fd cb 01 36 	. . . 6 
+	srl (iy+001h)		;01a5	fd cb 01 3e 	. . . > 
+	pop iy		;01a9	fd e1 	. . 
+	ex (sp),iy		;01ab	fd e3 	. . 
+	push iy		;01ad	fd e5 	. . 
+	nop			;01af	00 	. 
+	jp (iy)		;01b0	fd e9 	. . 
+	ld sp,iy		;01b2	fd f9 	. . 

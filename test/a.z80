@@ -1,0 +1,55 @@
+;
+;  DZ80 V3.4.1 Z80 Disassembly of a.bin
+;  2020/07/06 18:19
+;
+	org	0
+;
+	db	0fdh,4
+;
+	db	0fdh,5
+;
+	add	iy,bc
+	add	iy,de
+	ld	iy,X1234
+	ld	(X1234),iy
+	inc	iy
+	db	0fdh,26h
+;
+	ld	(de),a
+	add	iy,iy
+	ld	iy,(X1234)
+	dec	iy
+	db	0fdh,2eh
+;
+	ld	(de),a
+	inc	(iy+1)
+	dec	(iy+1)
+	ld	(iy+1),12h
+	add	iy,sp
+	ld	bc,Xfd12
+	ld	b,b
+	ld	bc,Xfd12
+	ld	b,(hl)
+	ld	bc,Xfd12
+	ld	c,b
+	ld	bc,Xfd12
+	ld	c,(hl)
+	ld	bc,Xfd12
+	ld	d,b
+	ld	bc,Xfd12
+	ld	d,(hl)
+	ld	bc,Xff12
+;
+;	Miscellaneous equates
+;
+;  These are addresses referenced in the code but
+;  which are in the middle of a multibyte instruction
+;  or are addresses outside the initialized space
+;
+X1234	equ	1234h
+Xfd12	equ	0fd12h
+Xff12	equ	0ff12h
+;
+	end
+;
+

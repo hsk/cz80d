@@ -1,0 +1,18 @@
+func1:
+  nop
+  ld bc,01h
+  ld (bc),a
+  inc bc
+  inc b
+  dec b
+  ld b,0h
+  rlca
+  ex af,af'
+  add hl,bc
+  ld a,(bc)
+  dec bc
+  inc c
+  dec c
+  ld c,0h
+  rrca
+

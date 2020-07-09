@@ -1,0 +1,16 @@
+  LD     D,B
+  LD     D,C
+  LD     D,D
+  LD     D,E
+  LD     D,H
+  LD     D,L
+  LD     D,(HL)
+  LD     D,A
+  LD     E,B
+  LD     E,C
+  LD     E,D
+  LD     E,E
+  LD     E,H
+  LD     E,L
+  LD     E,(HL)
+  LD     E,A
